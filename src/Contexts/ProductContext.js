@@ -2,13 +2,21 @@ import React, { createContext, useState } from 'react';
 
 export const ProductsContext = createContext();
 
-function ProductsPage({ children }) {
+let id = 3; // Id para los productos
+
+function ProductsProvider({ children }) {
     const [products, setProducts] = useState([
-        { id: 1, name: 'Product 1', price: 10 },
-        { id: 2, name: 'Product 2', price: 20 },
+        { id: 1, name: 'Producto 1', price: 10 },
+        { id: 2, name: 'Producto 2', price: 20 },
     ]);
 
-    const addProduct = (product) => setProducts([...products, product]);
+    const addProduct = (product) => {
+        const newProduct = {
+            ...product,
+            id: id++, 
+        };
+        setProducts([...products, newProduct]);
+    };
     const updateProduct = (updatedProduct) => {
         setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
     };
@@ -21,4 +29,4 @@ function ProductsPage({ children }) {
     );
 }
 
-export default ProductsPage;
+export default ProductsProvider;
